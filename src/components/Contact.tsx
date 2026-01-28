@@ -34,16 +34,30 @@ const Contact = () => {
 
   const contactInfo = [
     { icon: Mail, label: 'Email', value: 'hello@dataanalyst.com' },
-    { icon: Phone, label: 'Phone', value: '+1 (555) 123-4567' },
-    { icon: MapPin, label: 'Location', value: 'San Francisco, CA' },
+    { icon: Phone, label: 'Phone', value: '+91 98765 43210' },
+    { icon: MapPin, label: 'Location', value: 'Bangalore, India' },
   ];
 
   return (
-    <section id="contact" className="py-32 relative">
-      {/* Background Glow */}
+    <section id="contact" className="py-32 relative overflow-hidden">
+      {/* Enhanced Background with Glassmorphism */}
+      <div className="absolute top-20 -left-32 w-64 h-64 rounded-full bg-primary/10 blur-3xl" />
+      <div className="absolute bottom-20 -right-32 w-80 h-80 rounded-full bg-primary/5 blur-3xl" />
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-30" style={{ background: 'var(--gradient-glow)' }} />
       
-      <div className="section-container relative" ref={ref}>
+      {/* Floating glass orbs */}
+      <motion.div 
+        className="absolute top-40 right-10 w-20 h-20 rounded-full bg-primary/5 backdrop-blur-xl border border-primary/10"
+        animate={{ y: [0, -15, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      <motion.div 
+        className="absolute bottom-40 left-10 w-16 h-16 rounded-full bg-primary/10 backdrop-blur-xl border border-primary/20"
+        animate={{ y: [0, 15, 0] }}
+        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+      />
+      
+      <div className="section-container relative z-10" ref={ref}>
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -70,47 +84,47 @@ const Contact = () => {
           >
             <h3 className="text-2xl font-semibold mb-4">Ready to transform your data?</h3>
             <p className="text-muted-foreground mb-8 leading-relaxed">
-              I'm always interested in hearing about new opportunities, challenging 
-              projects, or just having a chat about data analytics. Feel free to 
-              reach out through any of the channels below.
+              I'm always excited to hear about new opportunities, internships, 
+              and challenging projects. Whether it's data analysis, visualization, 
+              or just a chat about analytics—feel free to reach out!
             </p>
 
-            <div className="space-y-6 mb-8">
+            <div className="space-y-4 mb-8">
               {contactInfo.map((info, index) => (
                 <motion.div
                   key={info.label}
                   initial={{ opacity: 0, x: -20 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
-                  className="flex items-center gap-4"
+                  className="flex items-center gap-4 p-4 rounded-xl bg-card/30 backdrop-blur-xl border border-border/50 hover:border-primary/30 transition-all duration-300 group"
                 >
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <info.icon className="w-5 h-5 text-primary" />
                   </div>
                   <div>
                     <div className="text-sm text-muted-foreground">{info.label}</div>
-                    <div className="font-medium">{info.value}</div>
+                    <div className="font-medium group-hover:text-primary transition-colors">{info.value}</div>
                   </div>
                 </motion.div>
               ))}
             </div>
 
-            {/* Availability Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
+            {/* Availability Badge with glassmorphism */}
+            <div className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-card/40 backdrop-blur-xl border border-primary/30 shadow-lg">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               <span className="text-sm text-primary font-medium">
-                Currently available for freelance projects
+                Open to internships & entry-level opportunities
               </span>
             </div>
           </motion.div>
 
-          {/* Contact Form */}
+          {/* Contact Form with enhanced glassmorphism */}
           <motion.form
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
             onSubmit={handleSubmit}
-            className="glass-card p-8"
+            className="relative p-8 rounded-2xl bg-card/40 backdrop-blur-xl border border-border/50 shadow-2xl"
           >
             <div className="grid sm:grid-cols-2 gap-4 mb-4">
               <div>
