@@ -51,8 +51,25 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="py-32 relative bg-secondary/20">
-      <div className="section-container" ref={ref}>
+    <section id="skills" className="py-32 relative overflow-hidden">
+      {/* Enhanced glassmorphism background */}
+      <div className="absolute inset-0 bg-secondary/20" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full bg-primary/5 blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full bg-primary/10 blur-3xl animate-pulse-glow" />
+      
+      {/* Floating glass elements */}
+      <motion.div 
+        className="absolute top-32 right-20 w-24 h-24 rounded-2xl bg-primary/5 backdrop-blur-xl border border-primary/10 rotate-12"
+        animate={{ y: [0, -20, 0], rotate: [12, 15, 12] }}
+        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      <motion.div 
+        className="absolute bottom-32 left-20 w-20 h-20 rounded-full bg-primary/10 backdrop-blur-xl border border-primary/20"
+        animate={{ y: [0, 20, 0] }}
+        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+      />
+
+      <div className="section-container relative z-10" ref={ref}>
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -70,18 +87,20 @@ const Skills = () => {
           <div className="data-line w-20 mx-auto" />
         </motion.div>
 
-        {/* Skills Grid */}
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
+        {/* Skills Grid with enhanced glassmorphism */}
+        <div className="grid md:grid-cols-2 gap-6 mb-16">
           {skillCategories.map((category, categoryIndex) => (
             <motion.div
               key={category.title}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
-              className="glass-card p-6"
+              className="relative p-6 rounded-2xl bg-card/40 backdrop-blur-xl border border-border/50 hover:border-primary/30 transition-all duration-500 group"
             >
-              <h3 className="text-lg font-semibold mb-6">{category.title}</h3>
-              <div className="space-y-5">
+              {/* Hover glow */}
+              <div className="absolute inset-0 rounded-2xl bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
+              <h3 className="relative z-10 text-lg font-semibold mb-6 group-hover:text-primary transition-colors">{category.title}</h3>
+              <div className="relative z-10 space-y-5">
                 {category.skills.map((skill, skillIndex) => (
                   <div key={skill.name}>
                     <div className="flex justify-between mb-2">
@@ -107,7 +126,7 @@ const Skills = () => {
           ))}
         </div>
 
-        {/* Technologies Cloud */}
+        {/* Technologies Cloud with glassmorphism pills */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -122,7 +141,8 @@ const Skills = () => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={isInView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 0.3, delay: 0.6 + index * 0.05 }}
-                className="px-4 py-2 rounded-full bg-secondary/50 text-sm font-medium hover:bg-primary/10 hover:text-primary transition-all duration-300 cursor-default"
+                whileHover={{ scale: 1.1 }}
+                className="px-4 py-2 rounded-full bg-card/40 backdrop-blur-xl border border-border/50 text-sm font-medium hover:bg-primary/10 hover:text-primary hover:border-primary/30 transition-all duration-300 cursor-default"
               >
                 {tech}
               </motion.span>
